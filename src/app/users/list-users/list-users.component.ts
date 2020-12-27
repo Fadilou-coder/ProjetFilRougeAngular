@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TokenService } from 'src/app/token/service/token.service';
 import { UserService } from '../service/user.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-list-users',
@@ -15,11 +16,11 @@ export class ListUsersComponent implements OnInit {
     private userservice: UserService,
     private router: Router,
     private url: ActivatedRoute,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private sanitizer:DomSanitizer
     ) { }
 
-  page = this.url.snapshot.params['id'];
-  id: any;
+  page = 1;
   users: any;
   nbrPage: any;
   token = this.tokenService.getLocalStorageToken();
@@ -30,9 +31,6 @@ export class ListUsersComponent implements OnInit {
       this.decoded = jwt_decode(this.token.token);
       this.decoded = this.decoded.roles[0];
       console.log(this.decoded);
-    }
-    if (!this.page){
-      this.page = 1;
     }
     console.log(this.page);
     this.userservice.findAllUser(this.page).subscribe(
@@ -48,6 +46,13 @@ export class ListUsersComponent implements OnInit {
       ,
       (error: any) => {console.log(error)}
     );
+  }
+  image(img: any){
+    if (img) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' + img);
+    }else{
+      return '../../../assets/image/inconu.jpeg'
+    }
   }
   archiverUser(id: any){
       this.userservice.archiverUser(id).subscribe(

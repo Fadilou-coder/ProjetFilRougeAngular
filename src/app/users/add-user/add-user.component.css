@@ -4,6 +4,7 @@
   background-position: center;
   background-size: cover;
 }
+
 form.user .custom-checkbox.small label {
   line-height: 1.5rem;
 }
@@ -20,11 +21,8 @@ form.user .btn-user {
   padding: 0.75rem 1rem;
 }
 
-.login{
-  height: 510px;
-}
-
 .avatar{
   height: 30%;
   background-color: aqua;
 }
+

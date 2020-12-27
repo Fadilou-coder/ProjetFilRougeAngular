@@ -10,7 +10,6 @@ export class UserService {
   constructor(
     private http: HttpClient,
     ) { }
-  static idCourent: number;
   private baseUrl = '/api';
 
 
@@ -54,10 +53,6 @@ export class UserService {
 
   putUser(id: any, body: any){
     return this.http.put(this.baseUrl + '/admin/users/' + id, body);
-  }
-
-  getID(id: any){
-    UserService.idCourent = id;
   }
 
   findAllApprenant(page: any){

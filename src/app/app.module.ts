@@ -28,6 +28,7 @@ import { AcceuilComponent } from './acceuil/acceuil.component';
 import { LoginInterceptorProvider } from './Interceptor/login.interceptor';
 import { LoginGuard } from './guard/login.guard';
 import { LogoutGuard } from './guard/logout.guard';
+import { EditProfilSortieComponent } from './Profil-Sortie/edit-profil-sortie/edit-profil-sortie.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { LogoutGuard } from './guard/logout.guard';
     ListGrpCmptsComponent,
     AddProfilSortieComponent,
     ListProfilSortieComponent,
-    AcceuilComponent
+    AcceuilComponent,
+    EditProfilSortieComponent
   ],
   imports: [
     BrowserModule,
