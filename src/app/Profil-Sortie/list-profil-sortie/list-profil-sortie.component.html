@@ -15,7 +15,6 @@
             <tr *ngFor = "let p of profilSortie">
               <td>{{ p.libelle }}</td>
               <td>
-                <button class="btn btn-success ml-2">liste Des {{p.libelle}}s</button>
                 <a class="btn btn-warning ml-2" routerLink = "editProfilSortie/{{p.id}}"><i class="fas fa-user-edit"></i></a>
                 <button class="btn btn-danger ml-2" (click)="archiverProfilSortie(p.id)" ><i class="fas fa-trash-alt"></i></button>
               </td>
