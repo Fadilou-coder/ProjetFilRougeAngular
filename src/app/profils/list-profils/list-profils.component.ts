@@ -23,13 +23,14 @@ export class ListProfilsComponent implements OnInit {
   profils: any;
   nbrPage: any = 1;
   token = this.tokenService.getLocalStorageToken();
-  decoded:any = '';
+  decoded: any = '';
+  role = '';
 
   ngOnInit(): void {
     if (this.token){
       this.decoded = jwt_decode(this.token.token);
-      this.decoded = this.decoded.roles[0];
-      console.log(this.decoded);
+      this.role = this.decoded.roles[0];
+      console.log(this.role);
     }
     console.log(this.page);
     this.userservice.findAllProfil(this.page).subscribe(

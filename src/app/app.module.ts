@@ -29,6 +29,12 @@ import { LoginInterceptorProvider } from './Interceptor/login.interceptor';
 import { LoginGuard } from './guard/login.guard';
 import { LogoutGuard } from './guard/logout.guard';
 import { EditProfilSortieComponent } from './Profil-Sortie/edit-profil-sortie/edit-profil-sortie.component';
+import { ListReferentielComponent } from './referentiel/list-referentiel/list-referentiel.component';
+import { EditGrpCmptComponent } from './grp-competences/edit-grp-cmpt/edit-grp-cmpt.component';
+import {NgxTagsModule} from 'ngx-tags-input-box';
+import {NgxTagsInputModule} from 'ngx-tags-input';
+import {NgxInputTagModule} from '@ngx-lite/input-tag';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -53,7 +59,9 @@ import { EditProfilSortieComponent } from './Profil-Sortie/edit-profil-sortie/ed
     AddProfilSortieComponent,
     ListProfilSortieComponent,
     AcceuilComponent,
-    EditProfilSortieComponent
+    EditProfilSortieComponent,
+    ListReferentielComponent,
+    EditGrpCmptComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +69,10 @@ import { EditProfilSortieComponent } from './Profil-Sortie/edit-profil-sortie/ed
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxTagsModule,
+    NgxInputTagModule.forRoot(),
+    BrowserAnimationsModule,
+    NgxTagsInputModule
   ],
   providers: [
     LoginInterceptorProvider,

@@ -14,6 +14,9 @@ import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { EditProfilComponent } from './profils/edit-profil/edit-profil.component';
 import { AddProfilSortieComponent } from './Profil-Sortie/add-profil-sortie/add-profil-sortie.component';
 import { EditProfilSortieComponent } from './Profil-Sortie/edit-profil-sortie/edit-profil-sortie.component';
+import { ListReferentielComponent } from './referentiel/list-referentiel/list-referentiel.component';
+import {AddGrpCmptComponent} from './grp-competences/add-grp-cmpt/add-grp-cmpt.component';
+import {EditGrpCmptComponent} from './grp-competences/edit-grp-cmpt/edit-grp-cmpt.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -23,17 +26,20 @@ const routes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'users' },
       { path: 'users', component: ListUsersComponent },
-      { path: 'users/addUser', component:AddUserComponent },
-      { path: 'users/editUser/:id', component:EditUserComponent },
+      { path: 'users/addUser', component: AddUserComponent },
+      { path: 'users/editUser/:id', component: EditUserComponent },
       { path: 'profils', component: ListProfilsComponent },
       { path: 'profils/addProfil', component: AddProfilComponent },
       { path: 'profils/editProfil/:id', component: EditProfilComponent },
       { path: 'cmpts', component: ListCmptsComponent },
       { path: 'grpCmpts', component: ListGrpCmptsComponent },
+      { path: 'grpCmpts/addgrpCmpts', component: AddGrpCmptComponent },
+      { path: 'grpCmpts/editgrpCmpts/:id', component: EditGrpCmptComponent },
       { path: 'promos', component: AddPromoComponent },
       { path: 'profil-sortie', component: ListProfilSortieComponent },
       { path: 'profil-sortie/addProfilSortie', component: AddProfilSortieComponent },
       { path: 'profil-sortie/editProfilSortie/:id', component: EditProfilSortieComponent },
+      { path: 'referentiel', component: ListReferentielComponent }
 
     ]
   },

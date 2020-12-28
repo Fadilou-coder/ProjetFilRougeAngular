@@ -17,20 +17,21 @@ export class ListUsersComponent implements OnInit {
     private router: Router,
     private url: ActivatedRoute,
     private tokenService: TokenService,
-    private sanitizer:DomSanitizer
+    private sanitizer: DomSanitizer
     ) { }
 
   page = 1;
   users: any;
   nbrPage: any;
   token = this.tokenService.getLocalStorageToken();
-  decoded:any = '';
+  decoded: any = '';
+  role = '';
 
   ngOnInit(): void {
     if (this.token){
       this.decoded = jwt_decode(this.token.token);
-      this.decoded = this.decoded.roles[0];
-      console.log(this.decoded);
+      this.role = this.decoded.roles[0];
+      console.log(this.role);
     }
     console.log(this.page);
     this.userservice.findAllUser(this.page).subscribe(
@@ -59,6 +60,7 @@ export class ListUsersComponent implements OnInit {
         (response: any) => {
           console.log(response);
           this.userservice.findAllUser(this.page).subscribe(
+            // tslint:disable-next-line:no-shadowed-variable
             (response: any) => {
               console.log(response);
               this.users = response['hydra:member'];
