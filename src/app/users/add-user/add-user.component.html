@@ -47,7 +47,6 @@
                                 </div>
                                 <div class="form-group">
                                   <select class="form-control" formControlName="profil" type="text" id="profil" name="profil" [(ngModel)]="profil" [ngClass]="{'is-invalid': submited && f.profil.errors }">
-                                      <option selected>Choose...</option>
                                   <option *ngFor = "let p of profils" value="{{ p.libelle }}"> {{ p.libelle }} </option>
                                   </select>
                                 </div>

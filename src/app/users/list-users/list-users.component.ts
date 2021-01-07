@@ -4,6 +4,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TokenService } from 'src/app/token/service/token.service';
 import { UserService } from '../service/user.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable'
 
 @Component({
   selector: 'app-list-users',
@@ -22,7 +24,7 @@ export class ListUsersComponent implements OnInit {
 
   page = 1;
   users: any;
-  nbrPage: any;
+  nbrPage: any = 1;
   token = this.tokenService.getLocalStorageToken();
   decoded: any = '';
   role = '';
@@ -114,5 +116,12 @@ export class ListUsersComponent implements OnInit {
           (error: any) => {console.log(error)}
     );
   }
+
+  uploadPdf() {
+    const doc = new jsPDF();
+    autoTable(doc, { html: '#my-table' });
+    doc.save('table.pdf');
+  }
+
 
 }

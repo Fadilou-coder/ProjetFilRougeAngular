@@ -4,7 +4,7 @@
         <span class="table-add float-right mb-3 mr-5 mt-3" *ngIf = "role == 'ROLE_ADMIN'"><a class="text-success"><i class="fas fa-user-plus fa-2x" routerLink = "addUser"></i></a></span>
       </div>
       <div class="container col-md-10">
-        <table class="table border text-center">
+        <table class="table border text-center" id="my-table">
           <thead class="thead-info">
             <tr>
               <th scope="col">Avatar</th>
@@ -25,7 +25,7 @@
               <td>{{ user.email }}</td>
               <td>{{ user.profil.libelle }}</td>
               <td>
-                <button class="btn btn-success ml-2">Details</button>
+                <button class="btn btn-success ml-2" routerLink="detailsUser/{{user.id}}">Details</button>
                 <a class="btn btn-warning ml-2" routerLink = "editUser/{{user.id}}"><i class="fas fa-user-edit"></i></a>
                 <button class="btn btn-danger ml-2" (click)="archiverUser(user.id)" ><i class="fas fa-trash-alt"></i></button>
               </td>

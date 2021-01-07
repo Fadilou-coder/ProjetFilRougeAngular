@@ -12,8 +12,8 @@ export class GrpCmptService {
   private baseUrl = '/api';
 
 
-  findAllGrpCompetences(page: any): any{
-    return this.http.get(this.baseUrl + '/admin/gprecompetences?page=' + page);
+  findAllGrpCompetences(): any{
+    return this.http.get(this.baseUrl + '/admin/gprecompetences');
   }
 
   archiverGrpCompetences(data: any): any{
@@ -21,6 +21,18 @@ export class GrpCmptService {
   }
 
   addGrpCpmt(data: any): any{
-    return this.http.post(this.baseUrl + '/admin/grpecompetences/',  data );
+    return this.http.post(this.baseUrl + '/admin/grpecompetences',  data );
+  }
+
+  getOneGrpCompt(id: number): any{
+    return this.http.get(this.baseUrl + '/admin/gprecompetences/' +  id);
+  }
+
+  editGrpCompt(id: number, data: any): any{
+    return this.http.put(this.baseUrl + '/admin/grpecompetences/' +  id, data);
+  }
+
+  getOneGrpComptByGrpCompt(id: number): any{
+    return this.http.get(this.baseUrl + '/grpe_competences/' +  id + '/competences');
   }
 }

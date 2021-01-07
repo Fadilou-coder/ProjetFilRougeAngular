@@ -14,10 +14,7 @@ export class ListGrpCmptsComponent implements OnInit {
 
   constructor(
     private grpCmptservice: GrpCmptService,
-    private router: Router,
-    private url: ActivatedRoute,
-    private tokenService: TokenService,
-    private sanitizer: DomSanitizer
+    private tokenService: TokenService
   ) { }
 
   page = 1;
@@ -34,7 +31,7 @@ export class ListGrpCmptsComponent implements OnInit {
       console.log(this.role);
     }
     console.log(this.page);
-    this.grpCmptservice.findAllGrpCompetences(this.page).subscribe(
+    this.grpCmptservice.findAllGrpCompetences().subscribe(
       (response: any) => {
         console.log(response);
         this.grpCpmt = response['hydra:member'];
@@ -52,7 +49,7 @@ export class ListGrpCmptsComponent implements OnInit {
     this.grpCmptservice.archiverGrpCompetences(id).subscribe(
       (response: any) => {
         console.log(response);
-        this.grpCmptservice.findAllGrpCompetences(this.page).subscribe(
+        this.grpCmptservice.findAllGrpCompetences().subscribe(
           // tslint:disable-next-line:no-shadowed-variable
           (response: any) => {
             console.log(response);
@@ -76,7 +73,7 @@ export class ListGrpCmptsComponent implements OnInit {
 
   suivant(): any{
     this.page++;
-    this.grpCmptservice.findAllGrpCompetences(this.page).subscribe(
+    this.grpCmptservice.findAllGrpCompetences().subscribe(
       (response: any) => {
         console.log(response);
         this.grpCpmt = response['hydra:member'];
@@ -92,7 +89,7 @@ export class ListGrpCmptsComponent implements OnInit {
   }
   precedent(): any{
     this.page--;
-    this.grpCmptservice.findAllGrpCompetences(this.page).subscribe(
+    this.grpCmptservice.findAllGrpCompetences().subscribe(
       (response: any) => {
         console.log(response);
         this.grpCpmt = response['hydra:member'];

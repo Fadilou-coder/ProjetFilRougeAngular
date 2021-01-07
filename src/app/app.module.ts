@@ -35,6 +35,13 @@ import {NgxTagsModule} from 'ngx-tags-input-box';
 import {NgxTagsInputModule} from 'ngx-tags-input';
 import {NgxInputTagModule} from '@ngx-lite/input-tag';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { TagInputModule } from 'ngx-chips';
+import { DetailsUserComponent } from './users/details-user/details-user.component';
+import { AddReferentielComponent } from './referentiel/add-referentiel/add-referentiel.component';
+import { EditReferentielComponent } from './referentiel/edit-referentiel/edit-referentiel.component';
+import { ItemReferentielComponent } from './referentiel/item-referentiel/item-referentiel.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +68,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AcceuilComponent,
     EditProfilSortieComponent,
     ListReferentielComponent,
-    EditGrpCmptComponent
+    EditGrpCmptComponent,
+    DetailsUserComponent,
+    AddReferentielComponent,
+    EditReferentielComponent,
+    ItemReferentielComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +83,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NgxTagsModule,
     NgxInputTagModule.forRoot(),
     BrowserAnimationsModule,
-    NgxTagsInputModule
+    NgxTagsInputModule,
+    NgxDropzoneModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    TagInputModule,
+
   ],
   providers: [
     LoginInterceptorProvider,

@@ -24,7 +24,6 @@ export class EditUserComponent implements OnInit {
   profil;
   user: any = new User(0, '', '', '', '', new Profil(0, ''), '');
   id: any;
-  private imageSelect: any;
 
 
   constructor(
