@@ -23,11 +23,11 @@ export class ReferentielService {
     return this.http.post(this.baseUrl + '/admin/referentiels',  data );
   }
 
-  getOneGrpCompt(id: number): any{
+  getOneRef(id: number): any{
     return this.http.get(this.baseUrl + '/admin/referentiels/' +  id);
   }
 
-  editGrpCompt(id: number, data: any): any{
+  editRef(id: number, data: any): any{
     return this.http.put(this.baseUrl + '/admin/referentiels/' +  id, data);
   }
 

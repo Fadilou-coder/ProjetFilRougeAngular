@@ -56,7 +56,7 @@ export class AddCmptComponent implements OnInit {
       textField: 'libelle',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
+      itemsShowLimit: 10,
       allowSearchFilter: true
     };
   }

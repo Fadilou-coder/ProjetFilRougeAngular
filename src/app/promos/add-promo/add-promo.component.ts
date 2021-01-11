@@ -1,6 +1,6 @@
 import { ReferentielService } from './../../referentiel/Service/referentiel.service';
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
 @Component({
@@ -13,7 +13,15 @@ export class AddPromoComponent implements OnInit {
   formadd: FormGroup;
   files: File[] = [];
   Refs;
-
+  langue;
+  description;
+  email;
+  lieu;
+  fabrique;
+  dateDebut;
+  dateFin;
+  refAgate;
+  appr;
 
 
   constructor(
@@ -23,7 +31,16 @@ export class AddPromoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.formadd = this.formBuilder?.group({}
+    this.formadd = this.formBuilder?.group({
+      langue: ['', [ Validators.required]],
+      lieu: ['', [ Validators.required]],
+      description: ['', [ Validators.required]],
+      email: ['', [ Validators.required]],
+      fabrique: ['', [ Validators.required]],
+      dateFin: ['', [ Validators.required]],
+      dateDebut: ['', [ Validators.required]],
+      refAgate: ['', [ Validators.required]],
+    }
     );
 
     this.refService.findAllRefs().subscribe(
@@ -36,6 +53,11 @@ export class AddPromoComponent implements OnInit {
       (error: any) => { console.log(error); }
     );
 
+
+  }
+  upload(event){
+    let f = event.target.files[0];
+    console.log(f);
 
   }
   addPromo(): any{

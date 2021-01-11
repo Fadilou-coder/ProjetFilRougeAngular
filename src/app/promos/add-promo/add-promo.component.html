@@ -83,8 +83,30 @@
                 </ngx-dropzone-preview>
             </ngx-dropzone>
 
-              <button  type="submit" class="btn btn-primary btn-user btn-block mt-3">
-                Soumettre
+            <div class="form-group float-right mt-3">
+              <button type="button" class="ml-5 btn btn-outline-success" (click)="apps.click()">Charger un fichier cvs</button>
+              <input style=" display: none;" type="file" accept=".xlsx,.xls,.csv" ngf-max-size="20MB" fd-input  (change)="upload($event)" formControlName = "appr" [(ngModel)]="appr" name="appr" #apps>
+            </div>
+
+            <div class="container row">
+              <div class="col-6">
+                <h4>Ajouter des apprenants<br><small class="ml-2 text-danger">*obligatoire</small></h4>
+
+                <div class="form-group mt-5">
+                  <label for="email">Adesse Email</label>
+                  <tag-input
+                            formControlName="email" id="email" name="email" placeholder="Email des apprenants" [displayBy] = "'email'" [(ngModel)] = "email"></tag-input>
+                </div>
+              </div>
+              <div class="col">
+                  <h4>Liste des apprenants</h4>
+                  <small class="text-info">02 apprenants en attentes<button type="button" class="ml-2 btn-sm btn-outline-success" >Relancer toutes les invitations</button></small><br><br>
+                  <small class="text-info">example@mail.com<button type="button" class="ml-5 btn-sm btn-outline-success">Relancer l'invitation</button></small>
+              </div>
+            </div>
+
+              <button  type="submit" class="btn btn-outline-success btn-block mt-3">
+                Ajouter
               </button>
             </form>
 

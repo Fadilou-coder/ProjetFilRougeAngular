@@ -42,6 +42,7 @@ import { DetailsUserComponent } from './users/details-user/details-user.componen
 import { AddReferentielComponent } from './referentiel/add-referentiel/add-referentiel.component';
 import { EditReferentielComponent } from './referentiel/edit-referentiel/edit-referentiel.component';
 import { ItemReferentielComponent } from './referentiel/item-referentiel/item-referentiel.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,7 @@ import { ItemReferentielComponent } from './referentiel/item-referentiel/item-re
     NgxDropzoneModule,
     NgMultiSelectDropDownModule.forRoot(),
     TagInputModule,
-
+    PdfViewerModule
   ],
   providers: [
     LoginInterceptorProvider,
