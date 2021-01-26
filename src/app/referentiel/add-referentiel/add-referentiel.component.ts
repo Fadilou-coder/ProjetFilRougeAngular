@@ -1,3 +1,4 @@
+import { ReferentielService } from 'src/app/referentiel/Service/referentiel.service';
 import { GrpCmptService } from 'src/app/grp-competences/Services/grp-cmpt.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Component, OnInit } from '@angular/core';
@@ -24,7 +25,8 @@ export class AddReferentielComponent implements OnInit {
 
   constructor(
     private comptService: GrpCmptService,
-    private FormBuilder: FormBuilder
+    private FormBuilder: FormBuilder,
+    private refService: ReferentielService,
   ) { }
 
   ngOnInit(): void {
@@ -59,15 +61,27 @@ export class AddReferentielComponent implements OnInit {
   }
 
   addRef(){
-    console.log(this.formadd.value)
-    console.log(this.pdfSrc);
+    console.log(this.formadd.value);
+    var cpmt = '';
+    if (this.selectedCompts) {
+      this.selectedCompts.forEach(element => {
+        cpmt += element.libelle+',';
+      });
+    }
     var formData = new FormData();
     formData.append('libelle', this.formadd.value.libelle);
     formData.append('presentation', this.formadd.value.presentation);
     formData.append('critereEvaluation', this.formadd.value.critereEvaluation);
     formData.append('critrreAdmission', this.formadd.value.critereAdmission);
     formData.append('programme', this.pdfSrc);
-    formData.append('grpCmpt', this.formadd.value.selectedCompts);
+    formData.append('grpCmpt', cpmt);
+    this.refService.addRef(formData).subscribe(
+      data => {
+        console.log(data);
+      },
+      err => {
+        console.log(err);
+      });
   }
 
 

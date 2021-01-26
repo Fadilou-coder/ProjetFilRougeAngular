@@ -1,6 +1,7 @@
 import { TokenService } from './../token/service/token.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import  jwt_decode  from 'jwt-decode';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +11,16 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+  token = this.tokenService.getLocalStorageToken();
+  decoded: any = '';
+
   constructor(private tokenService: TokenService, private router: Router) { }
 
   ngOnInit(): void {
+    if (this.token){
+      this.decoded = jwt_decode(this.token.token);
+      console.log(this.decoded.id);
+    }
   }
 
   logout(): void{

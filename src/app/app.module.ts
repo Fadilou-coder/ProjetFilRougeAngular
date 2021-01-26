@@ -43,6 +43,8 @@ import { AddReferentielComponent } from './referentiel/add-referentiel/add-refer
 import { EditReferentielComponent } from './referentiel/edit-referentiel/edit-referentiel.component';
 import { ItemReferentielComponent } from './referentiel/item-referentiel/item-referentiel.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { QRCodeModule } from 'angular2-qrcode';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     DetailsUserComponent,
     AddReferentielComponent,
     EditReferentielComponent,
-    ItemReferentielComponent
+    ItemReferentielComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +91,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     NgxDropzoneModule,
     NgMultiSelectDropDownModule.forRoot(),
     TagInputModule,
-    PdfViewerModule
+    PdfViewerModule,
+    QRCodeModule,
   ],
   providers: [
     LoginInterceptorProvider,

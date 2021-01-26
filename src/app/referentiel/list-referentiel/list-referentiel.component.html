@@ -17,7 +17,7 @@
             <p class="card-text d-flex justify-content-center" >{{r.presentation}} </p>
           <div>
           <a class="btn btn-outline-dark btn-block card-footer" routerLink="itemRef/{{ r.id }}">Groupe de Competences</a>
-          <button class="btn btn-outline-dark btn-block card-footer">{{r.programme}}</button>
+          <button class="btn btn-outline-dark btn-block card-footer" (click)="onClickDownloadPdf(r)">Programme</button>
           <button class="btn btn-outline-dark btn-block card-footer">{{r.critereEvaluation}}</button>
         </div>
       </div>

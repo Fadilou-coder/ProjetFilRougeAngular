@@ -33,18 +33,15 @@ export class ListUsersComponent implements OnInit {
     if (this.token){
       this.decoded = jwt_decode(this.token.token);
       this.role = this.decoded.roles[0];
-      console.log(this.role);
+      console.log(this.decoded.id);
     }
-    console.log(this.page);
     this.userservice.findAllUser(this.page).subscribe(
       (response: any) => {
-        console.log(response);
         this.users = response['hydra:member'];
         if(response['hydra:view']){
           this.nbrPage = response['hydra:view']['hydra:last'];
           this.nbrPage = this.nbrPage.split('=')[1];
         }
-        console.log(this.nbrPage);
         }
       ,
       (error: any) => {console.log(error)}
@@ -64,13 +61,11 @@ export class ListUsersComponent implements OnInit {
           this.userservice.findAllUser(this.page).subscribe(
             // tslint:disable-next-line:no-shadowed-variable
             (response: any) => {
-              console.log(response);
               this.users = response['hydra:member'];
               if(response['hydra:view']){
                 this.nbrPage = response['hydra:view']['hydra:last'];
                 this.nbrPage = this.nbrPage.split('=')[1];
               }
-              console.log(this.nbrPage);
             }
             ,
             (error: any) => {console.log(error)}
@@ -118,10 +113,20 @@ export class ListUsersComponent implements OnInit {
   }
 
   uploadPdf() {
+    var columns = ["N°", "Prenom", "Nom", "Email", "Profil"];
+    var rows = [];
+    let i = 1;
+    this.users.forEach(element => {
+      rows.push([i++, element.prenom, element.nom, element.email, element.profil.libelle])
+    });
     const doc = new jsPDF();
-    autoTable(doc, { html: '#my-table' });
+    doc.autoTable(columns, rows);
     doc.save('table.pdf');
+    // autoTable(doc, { html: '#my-table' });
+    // doc.save('table.pdf');
   }
+
+
 
 
 }

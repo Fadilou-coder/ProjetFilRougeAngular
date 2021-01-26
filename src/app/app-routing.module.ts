@@ -24,12 +24,16 @@ import { AddCmptComponent } from './competences/add-cmpt/add-cmpt.component';
 import { DetailsUserComponent } from './users/details-user/details-user.component';
 import { ItemGrpCmptComponent } from './grp-competences/item-grp-cmpt/item-grp-cmpt.component';
 import { AddReferentielComponent } from './referentiel/add-referentiel/add-referentiel.component';
+import { LogoutGuard } from './guard/logout.guard';
+import { LoginGuard } from './guard/login.guard';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [LogoutGuard] },
   { path: 'acceuil',
     component: AcceuilComponent,
+    canActivate: [LoginGuard],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'users' },
       { path: 'users', component: ListUsersComponent },
@@ -58,6 +62,9 @@ const routes: Routes = [
 
     ]
   },
+  { path: 'not-found', component: NotFoundComponent },
+  { path: '**', redirectTo: '/not-found' },
+
 
 ];
 

@@ -1,6 +1,9 @@
+import  autoTable  from 'jspdf-autotable';
+import jsPDF from 'jspdf';
+//import * as jsPDF from 'jspdf'
 import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from 'src/app/users/service/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Profil } from 'src/app/profils/Model/profil';
@@ -15,6 +18,8 @@ export class DetailsUserComponent implements OnInit {
 
   user: any = new User(0, '', '', '', '', new Profil(0, ''), '');
   id: any;
+  dataToString;
+  @ViewChild('content', {static: false}) content: ElementRef;
 
 
   constructor(
@@ -29,6 +34,14 @@ export class DetailsUserComponent implements OnInit {
       this.userservice.getOneUser(this.id).subscribe(
         (response: any) => {
           this.user = response['hydra:member'][0];
+          this.dataToString = 'Les informations de l\'utilisateur'+": "+'\n   Nom Complet'+": "+this.user.prenom+' '+this.user.nom+'\n   Email'+": "+this.user.email+'\n   Profil'+": "+this.user.profil.libelle;
+          // const data = [{
+          //   'name': this.user.prenom+' '+this.user.nom,
+          //   'profile': this.user.profil.libelle,
+          //   'email': this.user.email,
+          // }];
+
+          // this.dataToString = JSON.stringify(data);
           if (this.user) {
             if (this.user.image) {
                 this.user.image = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' + this.user.image);
@@ -45,5 +58,24 @@ export class DetailsUserComponent implements OnInit {
         }
       );
   }
+  imprimmer(){
+    const doc = new jsPDF();
+
+    const specialElementHandlers = {
+      '#editor': function (element, renderer) {
+        return true;
+      }
+    };
+
+    const content = this.content.nativeElement;
+
+    doc.fromHTML(content.innerHTML, 15, 15, {
+      width: 190,
+      'elementHandlers': specialElementHandlers
+    });
+
+    doc.save('test.pdf');
+  }
+
 
 }

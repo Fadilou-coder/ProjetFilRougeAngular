@@ -1,3 +1,4 @@
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { ReferentielService } from './../../referentiel/Service/referentiel.service';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -13,15 +14,19 @@ export class AddPromoComponent implements OnInit {
   formadd: FormGroup;
   files: File[] = [];
   Refs;
-  langue;
+  langue = 'francais';
+  titre;
   description;
   email;
   lieu;
-  fabrique;
+  fabrique = 'fabrique';
   dateDebut;
   dateFin;
   refAgate;
-  appr;
+  image;
+  fichier;
+  selectedRefs;
+  dropdownSettings: IDropdownSettings = {};
 
 
   constructor(
@@ -33,6 +38,7 @@ export class AddPromoComponent implements OnInit {
   ngOnInit(): void {
     this.formadd = this.formBuilder?.group({
       langue: ['', [ Validators.required]],
+      titre: ['', Validators.required],
       lieu: ['', [ Validators.required]],
       description: ['', [ Validators.required]],
       email: ['', [ Validators.required]],
@@ -40,6 +46,8 @@ export class AddPromoComponent implements OnInit {
       dateFin: ['', [ Validators.required]],
       dateDebut: ['', [ Validators.required]],
       refAgate: ['', [ Validators.required]],
+      fichier: '',
+      selectedRefs: ['', [ Validators.required]]
     }
     );
 
@@ -53,26 +61,70 @@ export class AddPromoComponent implements OnInit {
       (error: any) => { console.log(error); }
     );
 
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'libelle',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 10,
+      allowSearchFilter: true
+    };
+
 
   }
   upload(event){
-    let f = event.target.files[0];
-    console.log(f);
-
+    this.fichier = event.target.files[0];
   }
-  addPromo(): any{
-    return false;
-  }
-
   onSelect(event) {
     console.log(event);
     this.files.push(...event.addedFiles);
     console.log(this.files);
+    this.image = this.files[0];
   }
 
   onRemove(event) {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
+  }
+
+  addPromo(): any{
+    console.log(this.email)
+    var refs = '';
+    var appr = '';
+    if (this.selectedRefs) {
+      this.selectedRefs.forEach(element => {
+        refs += element.libelle+',';
+      });
+    }
+    if (this.email) {
+      this.email.forEach(element => {
+        appr += element.email+',';
+      });
+    }
+    var formdata = new FormData();
+    formdata.append('langue', this.langue);
+    formdata.append('titre', this.titre);
+    formdata.append('lieu', this.lieu);
+    formdata.append('description', this.description);
+    formdata.append('referenceAgate', this.refAgate);
+    formdata.append('dateDebut', this.dateDebut);
+    formdata.append('dateFinProvisoire', this.dateFin);
+    formdata.append('fabrique', this.fabrique);
+    formdata.append('refs', refs);
+    formdata.append('image', this.image);
+    formdata.append('apps', appr);
+    formdata.append('fichier', this.fichier);
+
+    this.refService.addPromo(formdata).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.router.navigate(['/acceuil/users'])
+      },err => {
+        console.log(err);
+      }
+
+    );
   }
 
 }

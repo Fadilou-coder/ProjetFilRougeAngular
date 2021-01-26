@@ -1,3 +1,4 @@
+import { DomSanitizer } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ReferentielService } from 'src/app/referentiel/Service/referentiel.service';
 
@@ -10,6 +11,7 @@ export class ListReferentielComponent implements OnInit {
 
   constructor(
     private refService: ReferentielService,
+    private sanitizer: DomSanitizer
   ) { }
 
   page = 1;
@@ -89,6 +91,31 @@ export class ListReferentielComponent implements OnInit {
       ,
       (error: any) => {console.log(error)}
     );
+  }
+
+  downloadPdf(base64String, fileName){
+    if(window.navigator && window.navigator.msSaveOrOpenBlob){
+      // download PDF in IE
+      let byteChar = atob(base64String);
+      let byteArray = new Array(byteChar.length);
+      for(let i = 0; i < byteChar.length; i++){
+        byteArray[i] = byteChar.charCodeAt(i);
+      }
+      let uIntArray = new Uint8Array(byteArray);
+      let blob = new Blob([uIntArray], {type : 'application/pdf'});
+      window.navigator.msSaveOrOpenBlob(blob, `${fileName}.pdf`);
+    } else {
+      // Download PDF in Chrome etc.
+      const source = `data:application/pdf;base64,${base64String}`;
+      const link = document.createElement("a");
+      link.href = source;
+      link.download = `${fileName}.pdf`
+      link.click();
+    }
+  }
+  onClickDownloadPdf(r){
+      let base64String = r.programme;
+      this.downloadPdf(base64String,'Programme ('+r.libelle+')');
   }
 
 }

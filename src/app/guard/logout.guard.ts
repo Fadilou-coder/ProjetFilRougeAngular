@@ -17,7 +17,7 @@ export class LogoutGuard implements CanActivate {
       if (!token){
         return true;
       }
-      this.router.navigate(['users']);
+      this.router.navigate(['acceuil/users']);
       return false;
   }
 
