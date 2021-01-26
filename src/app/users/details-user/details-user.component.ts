@@ -1,5 +1,3 @@
-import  autoTable  from 'jspdf-autotable';
-import jsPDF from 'jspdf';
 //import * as jsPDF from 'jspdf'
 import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from 'src/app/users/service/user.service';
@@ -59,22 +57,22 @@ export class DetailsUserComponent implements OnInit {
       );
   }
   imprimmer(){
-    const doc = new jsPDF();
+    // const doc = new jsPDF();
 
-    const specialElementHandlers = {
-      '#editor': function (element, renderer) {
-        return true;
-      }
-    };
+    // const specialElementHandlers = {
+    //   '#editor': function (element, renderer) {
+    //     return true;
+    //   }
+    // };
 
-    const content = this.content.nativeElement;
+    // const content = this.content.nativeElement;
 
-    doc.fromHTML(content.innerHTML, 15, 15, {
-      width: 190,
-      'elementHandlers': specialElementHandlers
-    });
+    // doc.fromHTML(content.innerHTML, 15, 15, {
+    //   width: 190,
+    //   'elementHandlers': specialElementHandlers
+    // });
 
-    doc.save('test.pdf');
+    // doc.save('test.pdf');
   }
 
 

@@ -4,8 +4,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TokenService } from 'src/app/token/service/token.service';
 import { UserService } from '../service/user.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable'
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-list-users',
