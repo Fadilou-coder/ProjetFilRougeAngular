@@ -1,8 +1,10 @@
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { ReferentielService } from './../../referentiel/Service/referentiel.service';
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import  Swal  from 'sweetalert2';
+import { window } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-promo',
@@ -12,7 +14,7 @@ import {Router} from '@angular/router';
 export class AddPromoComponent implements OnInit {
 
   formadd: FormGroup;
-  files: File[] = [];
+  // files: File[] = [];
   Refs;
   langue = 'francais';
   titre;
@@ -27,11 +29,14 @@ export class AddPromoComponent implements OnInit {
   fichier;
   selectedRefs;
   dropdownSettings: IDropdownSettings = {};
+  url;
+
+  @ViewChild('labelImport')
+  labelImport: ElementRef;
 
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
     private refService: ReferentielService,
   ) { }
 
@@ -47,7 +52,8 @@ export class AddPromoComponent implements OnInit {
       dateDebut: ['', [ Validators.required]],
       refAgate: ['', [ Validators.required]],
       fichier: '',
-      selectedRefs: ['', [ Validators.required]]
+      selectedRefs: ['', [ Validators.required]],
+      image: ''
     }
     );
 
@@ -77,18 +83,22 @@ export class AddPromoComponent implements OnInit {
     this.fichier = event.target.files[0];
   }
   onSelect(event) {
-    console.log(event);
-    this.files.push(...event.addedFiles);
-    console.log(this.files);
-    this.image = this.files[0];
+    this.image = event.target.files[0];
+    this.labelImport.nativeElement.innerText = Array.from(event.target.files).map((f:any) => f.name).join(', ');
+
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (_event) => {
+          this.url = reader.result;
+      }
   }
 
-  onRemove(event) {
-    console.log(event);
-    this.files.splice(this.files.indexOf(event), 1);
-  }
+  // onRemove(event) {
+  //   console.log(event);
+  //   this.files.splice(this.files.indexOf(event), 1);
+  // }
 
-  addPromo(): any{
+  addPromo(form: NgForm): any{
     console.log(this.email)
     var refs = '';
     var appr = '';
@@ -112,16 +122,40 @@ export class AddPromoComponent implements OnInit {
     formdata.append('dateFinProvisoire', this.dateFin);
     formdata.append('fabrique', this.fabrique);
     formdata.append('refs', refs);
-    formdata.append('image', this.image);
+    if (this.image) {
+      formdata.append('image', this.image);
+    }
     formdata.append('apps', appr);
-    formdata.append('fichier', this.fichier);
-
+    if (this.fichier) {
+      formdata.append('fichier', this.fichier);
+    }
     this.refService.addPromo(formdata).subscribe(
       (response: any) => {
         console.log(response);
-        this.router.navigate(['/acceuil/users'])
+        Swal.fire(
+          'Succes!',
+          'Promo ajouter avec succes.',
+          'success'
+        );
+        form.resetForm();
+        this.url = null;
+        this.labelImport = null;
+
       },err => {
-        console.log(err);
+        console.log(err.error);
+        if (err.error.status == 500) {
+          Swal.fire(
+            'Erreur!',
+            'Verifier les emails saisis',
+            'error'
+          );
+        }else{
+          Swal.fire(
+            'Erreur!',
+            'Cette Promo existe deja!!!',
+            'error'
+          );
+        }
       }
 
     );

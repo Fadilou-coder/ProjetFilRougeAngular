@@ -5,6 +5,8 @@ import {Router} from '@angular/router'
 import {GrpCmptService} from '../Services/grp-cmpt.service'
 import {Observable} from 'rxjs'
 import {setTheme} from 'ngx-bootstrap/utils'
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-grp-cmpt',
@@ -18,7 +20,8 @@ export class AddGrpCmptComponent implements OnInit {
   libelle
   descriptif
   competences = []
-  cmptSuggestions = []
+  cmptSuggestions = [];
+  dropdownSettings: IDropdownSettings = {};
 
 
   constructor(
@@ -32,14 +35,21 @@ export class AddGrpCmptComponent implements OnInit {
       libelle: ['', [ Validators.required]],
       descriptif: ['', [ Validators.required]],
       competences: [],
-    })
+    });
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'libelle',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 10,
+      allowSearchFilter: true
+    };
 
     this.cpmtService.findAllCompetences().subscribe(
       (comp: any) => {
-        for (let c of comp['hydra:member'] ){
-          this.cmptSuggestions.push(c.libelle)
-        }
-
+        this.cmptSuggestions = comp['hydra:member'];
       }
     )
   }
@@ -50,9 +60,15 @@ export class AddGrpCmptComponent implements OnInit {
   }
 
   addGrpCompt(): void{
+    console.log(this.formadd.value);
     this.grpCpmtservice.addGrpCpmt(this.formadd.value).subscribe(
       (response: any) => {
         console.log(response);
+        Swal.fire(
+          'Succes!',
+          'Groupe Competence ajouter avec succes.',
+          'success'
+        );
         this.router.navigate(['/acceuil/grpCmpts']);
       },
       error => {

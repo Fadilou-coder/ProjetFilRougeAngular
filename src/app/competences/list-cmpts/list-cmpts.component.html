@@ -8,10 +8,11 @@
     <div class="col-md-4 mt-5 border border-dark">
         <form class="container mt-2">
           <div class="form-group">
-              <div class="container" [formGroup] = "form">
-                <select class="form-control" formControlName="idCompt" type="text" id="competence" name="competence" [(ngModel)]="idCompt" (change) = "compt()">
+              <div class="row container" [formGroup] = "form">
+                <select class="col-9 form-control" formControlName="idCompt" type="text" id="competence" name="competence" [(ngModel)]="idCompt" (change) = "compt()">
                   <option *ngFor = "let c of Cpmts" value="{{ c.id }}"> {{ c.libelle }} </option>
                 </select>
+                <a class="btn" routerLink = "editCmpts/{{idCompt}}"><i class="fas fa-pencil-alt"></i></a>
               </div>
           </div>
         </form>

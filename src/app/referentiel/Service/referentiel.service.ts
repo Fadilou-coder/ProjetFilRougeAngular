@@ -32,7 +32,7 @@ export class ReferentielService {
   }
 
   getGrpComptByRef(id: number): any{
-    return this.http.get(this.baseUrl + '/referentiels/' +  id + '/grpe_competences');
+    return this.http.get(this.baseUrl + '/admin/referentiels/' +  id + '/grpe_competences');
   }
 
   addPromo(data: any): any{

@@ -4,6 +4,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-edit-referentiel',
@@ -39,7 +40,7 @@ export class EditReferentielComponent implements OnInit {
         const ref = response['hydra:member'][0];
         console.log(ref);
         this.libelle = ref.libelle;
-        this.presentation = ref.libelle;
+        this.presentation = ref.presentation;
         this.critereAdmission = ref.critereAdmission;
         this.critereEvaluation = ref.critereEvaluation;
         this.selectedCompts = ref.grpeCompetences;
@@ -90,7 +91,12 @@ export class EditReferentielComponent implements OnInit {
     formData.append('grpCmpt', this.formadd.value.selectedCompts);
     this.refService.editRef(this.id, formData).subscribe(data => {
       console.log(data);
-      this.router.navigate['/acceuil/referentiel']
+      Swal.fire(
+        'Succes!',
+        'Referentiel Modifier avec succes.',
+        'success'
+      );
+      this.router.navigate(['/acceuil/referentiel'])
 
     }, err => { console.log(err); });
   }

@@ -1,6 +1,7 @@
 import { DomSanitizer } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ReferentielService } from 'src/app/referentiel/Service/referentiel.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-list-referentiel',
@@ -35,29 +36,43 @@ export class ListReferentielComponent implements OnInit {
     );
   }
   archiverRef(id: any): any{
-    this.refService.archiverRef(id).subscribe(
-      (response: any) => {
-        console.log(response);
-        this.refService.findAllRefs().subscribe(
-          // tslint:disable-next-line:no-shadowed-variable
-          (response: any) => {
-            console.log(response);
-            this.Refs = response['hydra:member'];
-            if (response['hydra:view']){
-              this.nbrPage = response['hydra:view']['hydra:last'];
-              this.nbrPage = this.nbrPage.split('=')[1];
-            }
-            console.log(this.nbrPage);
-          }
-          ,
-          (error: any) => {console.log(error)}
-        );
-      },
-      error => {
-        console.log(error);
-        alert(error.error.detail);
+    Swal.fire({
+      title: 'Etes vous sure?',
+      text: 'Vous voulais vraiment supprimmer cet Utilisateur!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'OUI!',
+      cancelButtonText: 'Non, Annuler'
+    }).then((result) => {
+      if (result.value) {
+              this.refService.archiverRef(id).subscribe(
+                (response: any) => {
+                  console.log(response);
+                  Swal.fire(
+                    'Deleted!',
+                    'Your imaginary file has been deleted.',
+                    'success'
+                  )
+                  this.refService.findAllRefs().subscribe(
+                    // tslint:disable-next-line:no-shadowed-variable
+                    (response: any) => {
+                      console.log(response);
+                      this.Refs = response['hydra:member'];
+                      if (response['hydra:view']){
+                        this.nbrPage = response['hydra:view']['hydra:last'];
+                        this.nbrPage = this.nbrPage.split('=')[1];
+                      }
+                      console.log(this.nbrPage);
+                    }
+                    ,
+                    (error: any) => {console.log(error)}
+                  );
+                },error => {
+                  console.log(error);
+                  alert(error.error.detail);
+                })
       }
-    );
+    });
   }
 
   suivant(): any{

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GrpCmptService } from '../Services/grp-cmpt.service';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-edit-grp-cmpt',
@@ -17,6 +19,7 @@ export class EditGrpCmptComponent implements OnInit {
   competences = [];
   cmptSuggestions = [];
   id;
+  dropdownSettings: IDropdownSettings = {};
 
 
   constructor(
@@ -33,7 +36,17 @@ export class EditGrpCmptComponent implements OnInit {
       descriptif: ['', [ Validators.required]],
       competences: [],
       id: this.id,
-    })
+    });
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'libelle',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 10,
+      allowSearchFilter: true
+    };
 
     this.grpCpmtservice.getOneGrpCompt(this.id).subscribe(
       (response: any) => {
@@ -45,10 +58,7 @@ export class EditGrpCmptComponent implements OnInit {
 
     this.cpmtService.findAllCompetences().subscribe(
       (comp: any) => {
-        for (let c of comp['hydra:member'] ){
-          this.cmptSuggestions.push(c.libelle)
-        }
-
+        this.cmptSuggestions = comp['hydra:member'];
       }
     )
   }
@@ -63,6 +73,11 @@ export class EditGrpCmptComponent implements OnInit {
     this.grpCpmtservice.editGrpCompt(this.id, this.formadd.value).subscribe(
       (response: any) => {
         console.log(response);
+        Swal.fire(
+          'Succes!',
+          'Groupe Competence Modifier avec succes.',
+          'success'
+        );
         this.router.navigate(['/acceuil/grpCmpts']);
       },
       error => {

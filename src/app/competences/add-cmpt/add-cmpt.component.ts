@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GrpCmptService } from 'src/app/grp-competences/Services/grp-cmpt.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-cmpt',
@@ -98,9 +99,16 @@ export class AddCmptComponent implements OnInit {
     console.log(NouvComptetence);
     this.comptService.addCpmt(NouvComptetence).subscribe(
       (response: any) => {
-        this.router.navigate['/acceuil/cmpts']
+        console.log(response);
+        Swal.fire(
+          'Succes!',
+          'Competence ajouter avec succes.',
+          'success'
+        )
+        this.router.navigate(['/acceuil/cmpts']);
       },
       error => {
+        alert('Cet Compétence existe deja');
         console.log(error);
       }
     );

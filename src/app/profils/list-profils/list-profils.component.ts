@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/token/service/token.service';
 import { UserService } from 'src/app/users/service/user.service';
 import  jwt_decode  from 'jwt-decode';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-list-profils',
@@ -25,6 +26,7 @@ export class ListProfilsComponent implements OnInit {
   token = this.tokenService.getLocalStorageToken();
   decoded: any = '';
   role = '';
+  users;
 
   ngOnInit(): void {
     if (this.token){
@@ -55,27 +57,56 @@ export class ListProfilsComponent implements OnInit {
     }
   }
   archiverProfil(id: any){
-      this.userservice.archiverProfil(id).subscribe(
-        (response: any) => {
-          console.log(response);
-          this.userservice.findAllProfil(this.page).subscribe(
-            (response: any) => {
-              console.log(response);
-              this.profils = response['hydra:member'];
-              if(response['hydra:view']){
-                this.nbrPage = response['hydra:view']['hydra:last'];
-                this.nbrPage = this.nbrPage.split('=')[1];
-              }
+    Swal.fire({
+      title: 'Etes vous sure?',
+      text: 'Vous voulais vraiment supprimmer cet Utilisateur!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'OUI!',
+      cancelButtonText: 'Non, Annuler'
+    }).then((result) => {
+      if (result.value) {
+        this.userservice.getUserByProfil(id,1).subscribe(
+          (response: any) => {
+            if (response['hydra:member'] && response['hydra:member'].length) {
+              Swal.fire(
+                'Suppression Impossible!!!',
+                'Il existe des utilisateurs de ce Profil :)',
+                'error'
+              )
+            }else{
+              this.userservice.archiverProfil(id).subscribe(
+                (response: any) => {
+                  console.log(response);
+                  Swal.fire(
+                    'Deleted!',
+                    'Your imaginary file has been deleted.',
+                    'success'
+                  )
+                  this.userservice.findAllProfil(this.page).subscribe(
+                    (response: any) => {
+                      console.log(response);
+                      this.profils = response['hydra:member'];
+                      if(response['hydra:view']){
+                        this.nbrPage = response['hydra:view']['hydra:last'];
+                        this.nbrPage = this.nbrPage.split('=')[1];
+                      }
+                    }
+                    ,
+                    (error: any) => {console.log(error)}
+                  );
+                },
+                error => {
+                  console.log(error);
+                  alert(error.error.detail);
+                }
+              );
             }
-            ,
-            (error: any) => {console.log(error)}
-          );
-        },
-        error => {
-          console.log(error);
-          alert(error.error.detail);
-        }
-      );
+          }
+        );
+      }
+    })
+
   }
 
   suivant(){

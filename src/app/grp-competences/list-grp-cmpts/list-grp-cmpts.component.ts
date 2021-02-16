@@ -4,6 +4,7 @@ import {TokenService} from '../../token/service/token.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import jwt_decode from 'jwt-decode';
 import {GrpCmptService} from '../Services/grp-cmpt.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-list-grp-cmpts',
@@ -46,29 +47,45 @@ export class ListGrpCmptsComponent implements OnInit {
     );
   }
   archiverGrpCpmt(id: any): any{
-    this.grpCmptservice.archiverGrpCompetences(id).subscribe(
-      (response: any) => {
-        console.log(response);
-        this.grpCmptservice.findAllGrpCompetences().subscribe(
-          // tslint:disable-next-line:no-shadowed-variable
-          (response: any) => {
-            console.log(response);
-            this.grpCpmt = response['hydra:member'];
-            if (response['hydra:view']){
-              this.nbrPage = response['hydra:view']['hydra:last'];
-              this.nbrPage = this.nbrPage.split('=')[1];
+    Swal.fire({
+      title: 'Etes vous sure?',
+      text: 'Vous voulais vraiment supprimmer cet Utilisateur!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'OUI!',
+      cancelButtonText: 'Non, Annuler'
+    }).then((result) => {
+      if (result.value) {
+          this.grpCmptservice.archiverGrpCompetences(id).subscribe(
+            (response: any) => {
+              console.log(response);
+              Swal.fire(
+                'Deleted!',
+                'Your imaginary file has been deleted.',
+                'success'
+              )
+              this.grpCmptservice.findAllGrpCompetences().subscribe(
+                // tslint:disable-next-line:no-shadowed-variable
+                (response: any) => {
+                  console.log(response);
+                  this.grpCpmt = response['hydra:member'];
+                  if (response['hydra:view']){
+                    this.nbrPage = response['hydra:view']['hydra:last'];
+                    this.nbrPage = this.nbrPage.split('=')[1];
+                  }
+                  console.log(this.nbrPage);
+                }
+                ,
+                (error: any) => {console.log(error)}
+              );
+            },
+            error => {
+              console.log(error);
+              alert(error.error.detail);
             }
-            console.log(this.nbrPage);
-          }
-          ,
-          (error: any) => {console.log(error)}
-        );
-      },
-      error => {
-        console.log(error);
-        alert(error.error.detail);
+          );
       }
-    );
+    })
   }
 
   suivant(): any{

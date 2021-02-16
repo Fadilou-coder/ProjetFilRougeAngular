@@ -19,7 +19,7 @@
                   </select> -->
 
                   <ng-multiselect-dropdown
-                    [placeholder]="'custom placeholder'"
+                    [placeholder]="'Choisir Groupe de Competences'"
                     [data]="grpCompts"
                     [(ngModel)]="selectedGrpCompts"
                     [settings]="dropdownSettings"
@@ -47,15 +47,15 @@
                       <div class="col-lg-6 border border-dark">
                         <div class="form-group">
                           <label for="grpAction1" class = "text-danger">Groupe d'actions à réaliser</label>
-                          <input type="text" class="form-control form-control-user"
-                                 formControlName="grpAction1" id="grpAction1" name="grpAction1" placeholder="Groupe d'action" [(ngModel)]="grpAction1">
+                          <textarea class="form-control form-control-user"
+                                 formControlName="grpAction1" id="grpAction1" name="grpAction1" placeholder="Groupe d'action" [(ngModel)]="grpAction1"></textarea>
                         </div>
                       </div>
                       <div class="col border border-dark">
                         <div class="form-group">
                           <label for="crEv1" class = "text-danger">Critère d'évaluation</label>
-                          <input type="text" class="form-control form-control-user"
-                                 formControlName="crEv1" id="crEv1" name="crEv1" placeholder="Critère d'évaluation" [(ngModel)]="crEv1">
+                          <textarea  class="form-control form-control-user"
+                                 formControlName="crEv1" id="crEv1" name="crEv1" placeholder="Critère d'évaluation" [(ngModel)]="crEv1"></textarea>
                         </div>
                       </div>
                     </div>
@@ -65,15 +65,15 @@
                       <div class="col-lg-6 border border-dark">
                         <div class="form-group">
                           <label for="grpAction2" class = "text-danger">Groupe d'actions à réaliser</label>
-                          <input type="text" class="form-control form-control-user"
-                                 formControlName="grpAction2" id="grpAction2" name="grpAction2" placeholder="Groupe d'action" [(ngModel)]="grpAction2">
+                          <textarea class="form-control form-control-user"
+                                 formControlName="grpAction2" id="grpAction2" name="grpAction2" placeholder="Groupe d'action" [(ngModel)]="grpAction2"></textarea>
                         </div>
                       </div>
                       <div class="col border border-dark">
                         <div class="form-group">
                           <label for="crEv2" class = "text-danger">Critère d'évaluation</label>
-                          <input type="text" class="form-control form-control-user"
-                                 formControlName="crEv2" id="crEv2" name="crEv2" placeholder="Critère d'évaluation" [(ngModel)]="crEv2">
+                          <textarea type="text" class="form-control form-control-user"
+                                 formControlName="crEv2" id="crEv2" name="crEv2" placeholder="Critère d'évaluation" [(ngModel)]="crEv2"></textarea>
                         </div>
                       </div>
                     </div>
@@ -83,15 +83,15 @@
                       <div class="col-lg-6 border border-dark">
                         <div class="form-group">
                           <label for="grpAction3" class = "text-danger">Groupe d'actions à réaliser</label>
-                          <input type="text" class="form-control form-control-user"
-                                 formControlName="grpAction3" id="grpAction3" name="grpAction3" placeholder="Groupe d'action" [(ngModel)]="grpAction3">
+                          <textarea class="form-control form-control-user"
+                                 formControlName="grpAction3" id="grpAction3" name="grpAction3" placeholder="Groupe d'action" [(ngModel)]="grpAction3"></textarea>
                         </div>
                       </div>
                       <div class="col border border-dark">
                         <div class="form-group">
                           <label for="crEv3" class = "text-danger">Critère d'évaluation</label>
-                          <input type="text" class="form-control form-control-user"
-                                 formControlName="crEv3" id="crEv3" name="crEv3" placeholder="Critère d'évaluation" [(ngModel)]="crEv3">
+                          <textarea type="text" class="form-control form-control-user"
+                                 formControlName="crEv3" id="crEv3" name="crEv3" placeholder="Critère d'évaluation" [(ngModel)]="crEv3"></textarea>
                         </div>
                       </div>
                     </div>
@@ -111,3 +111,4 @@
   </div>
 
 </div>
+

@@ -39,7 +39,7 @@
               <div class="form-group">
                 <label>Programme</label>
                 <button type="button" class="ml-5 btn btn-outline-info" (click)="prog.click()">uploder le Programme</button>
-                <input style=" display: none;" type="file" (change)="upload($event)" multiple class="custom-file-input form-control" formControlName = "programme" [(ngModel)]="programme" name="programme" #prog>
+                <input style=" display: none;" type="file" accept=".jpg,.gif,.png, .jpeg, .pdf" (change)="upload($event)" multiple class="custom-file-input form-control" formControlName = "programme" [(ngModel)]="programme" name="programme" #prog>
               </div>
 
               <div class="form-group">

@@ -1,3 +1,5 @@
+import  jwt_decode  from 'jwt-decode';
+import { TokenService } from './../../token/service/token.service';
 import { Profil } from './../../profils/Model/profil';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -24,6 +26,9 @@ export class EditUserComponent implements OnInit {
   profil;
   user: any = new User(0, '', '', '', '', new Profil(0, ''), '');
   id: any;
+  imageSelect;
+
+
 
 
   constructor(
@@ -31,11 +36,24 @@ export class EditUserComponent implements OnInit {
     private router: Router,
     private userservice: UserService,
     private url: ActivatedRoute,
-    private sanitizer:DomSanitizer
+    private sanitizer:DomSanitizer,
+    private tokenService: TokenService
   ) { }
+
+  token = this.tokenService.getLocalStorageToken();
+  decoded: any;
+  connected: boolean = true;
+
   ngOnInit(): void {
     this.id = this.url.snapshot.params['id'];
-    console.log(this.id);
+    if (this.token){
+      this.decoded = jwt_decode(this.token.token);
+    }
+
+    if (this.decoded.id == this.id) {
+      this.connected = false;
+    }
+
       this.userservice.getOneUser(this.id).subscribe(
         (response: any) => {
           this.user = response['hydra:member'][0];
@@ -71,7 +89,8 @@ export class EditUserComponent implements OnInit {
         prenom: ['', [ Validators.required]],
         nom: ['', [Validators.required]],
         profil: ['', [ Validators.required]],
-        confirm: ['', [ Validators.required, ]]
+        confirm: ['', [ Validators.required, ]],
+        image: ['', []]
       });
 
   }
@@ -83,7 +102,7 @@ export class EditUserComponent implements OnInit {
 
   onFilSelected(event: any) {
     if (event) {
-      this.image = event.target.files[0];
+      this.imageSelect = event.target.files[0];
     }
   }
 
@@ -93,7 +112,9 @@ export class EditUserComponent implements OnInit {
     formData.append('nom', this.formadd.value.nom);
     formData.append('email', this.formadd.value.email);
     formData.append('password', this.formadd.value.password);
-    formData.append('image', this.image);
+    if (this.imageSelect) {
+      formData.append('image', this.imageSelect);
+    }
     formData.append('profil', this.formadd.value.profil);
     this.userservice.putUser(this.id, formData).subscribe(
       (response: any) => {

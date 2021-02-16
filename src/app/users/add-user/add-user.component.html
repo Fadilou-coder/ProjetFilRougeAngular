@@ -50,15 +50,16 @@
                                   <option *ngFor = "let p of profils" value="{{ p.libelle }}"> {{ p.libelle }} </option>
                                   </select>
                                 </div>
-                                <div class="border border-info rounded-circle avatar">
-
+                                <div *ngIf="url" class="mb-2">
+                                  <img class="avatar" [src]="url" alt="..."/>
                                 </div>
+
                                 <div class="input-group">
                                   <div class="custom-file">
-                                    <input type="file" class="custom-file-input form-control form-control-user" id="image" (change)="onFilSelected($event)"
+                                    <input type="file" accept=".jpg,.gif,.png, .jpeg" multiple class="custom-file-input form-control form-control-user" id="image" (change)="onFilSelected($event)"
                                       [(ngModel)]="image" formControlName="image" name="image"
                                       [ngClass]="{'is-invalid': submited && f.image.errors }">
-                                    <label class="custom-file-label" for="avatar">Choisir une image</label>
+                                      <label class="custom-file-label" #labelImport for="avatar">Choisir une image</label>
                                   </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block mt-3">

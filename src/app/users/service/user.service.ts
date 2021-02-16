@@ -59,4 +59,12 @@ export class UserService {
     return this.http.get(this.baseUrl + '/apprenants?page=' + page);
   }
 
+  findAllFormateurs(page: any){
+    return this.http.get(this.baseUrl + '/formateurs?page=' + page);
+  }
+
+  findAllForAndApp(page: any){
+    return this.http.get(this.baseUrl + '/admin/app_and_for?page=' + page);
+  }
+
 }

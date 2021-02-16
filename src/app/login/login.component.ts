@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   formLogin!: FormGroup;
   hide = true;
+  message = '';
   public token: TokenClass | undefined;
   // tslint:disable-next-line: max-line-length
   constructor(
@@ -49,6 +50,13 @@ export class LoginComponent implements OnInit {
       const token = this.tokenService.getLocalStorageToken();
       console.log(token)
       this.router.navigate(['/acceuil']);
-   }, (err: any) => console.log(err));
+   }, (err: any) => {
+    console.log(err.error.message);
+    if (err.error.message) {
+      this.message = "Login or password incorrect";
+    }
+   });
+
+
   }
 }

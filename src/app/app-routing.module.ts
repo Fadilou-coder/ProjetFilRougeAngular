@@ -1,3 +1,4 @@
+import { EditCpmtComponent } from './competences/edit-cpmt/edit-cpmt.component';
 import { ItemReferentielComponent } from './referentiel/item-referentiel/item-referentiel.component';
 import { EditReferentielComponent } from './referentiel/edit-referentiel/edit-referentiel.component';
 import { ItemProfilComponent } from './profils/item-profil/item-profil.component';
@@ -27,6 +28,7 @@ import { AddReferentielComponent } from './referentiel/add-referentiel/add-refer
 import { LogoutGuard } from './guard/logout.guard';
 import { LoginGuard } from './guard/login.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { DetailsProfilSortieComponent } from './Profil-Sortie/details-profil-sortie/details-profil-sortie.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -46,6 +48,7 @@ const routes: Routes = [
       { path: 'profils/itemProfil/:id', component: ItemProfilComponent },
       { path: 'cmpts', component: ListCmptsComponent },
       { path: 'cmpts/addCmpts', component: AddCmptComponent },
+      { path: 'cmpts/editCmpts/:id', component: EditCpmtComponent},
       { path: 'grpCmpts', component: ListGrpCmptsComponent },
       { path: 'grpCmpts/addgrpCmpts', component: AddGrpCmptComponent },
       { path: 'grpCmpts/editgrpCmpts/:id', component: EditGrpCmptComponent },
@@ -53,6 +56,7 @@ const routes: Routes = [
       { path: 'promos', component: AddPromoComponent },
       { path: 'profil-sortie', component: ListProfilSortieComponent },
       { path: 'profil-sortie/addProfilSortie', component: AddProfilSortieComponent },
+      { path: 'profil-sortie/detailsProfilSortie', component: DetailsProfilSortieComponent },
       { path: 'profil-sortie/editProfilSortie/:id', component: EditProfilSortieComponent },
       { path: 'referentiel', component: ListReferentielComponent },
       { path: 'referentiel/addRef', component: AddReferentielComponent },

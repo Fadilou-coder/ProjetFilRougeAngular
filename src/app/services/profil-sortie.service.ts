@@ -30,4 +30,10 @@ export class ProfilSortieService {
   updateProfilSortie(id: any, body: any){
     return this.http.put(this.baseUrl + '/admin/profilsortie/' + id, body);
   }
+
+  findAllAppOfProfilSortie(page: number, id: number){
+    return this.http.get(this.baseUrl + '/profils_de_sorties/' +  id + '/apprenants?page=' + page);
+  }
+
+
 }

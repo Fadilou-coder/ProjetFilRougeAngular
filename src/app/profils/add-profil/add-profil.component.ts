@@ -1,3 +1,4 @@
+import { ListProfilsComponent } from './../list-profils/list-profils.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,6 +13,7 @@ export class AddProfilComponent implements OnInit {
 
   formadd: FormGroup;
   libelle;
+  profils;
 
 
   constructor(
@@ -36,10 +38,11 @@ export class AddProfilComponent implements OnInit {
         (response: any) => {
           console.log(response);
           this.router.navigate(['/acceuil/profils']);
+
         },
         error => {
           console.log(error);
-          alert(error.error.detail);
+          alert('Ce Profil existe');
         }
     );
   }

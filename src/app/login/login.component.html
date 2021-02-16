@@ -17,11 +17,12 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
+                                    <div class="alert alert-danger" *ngIf = "message !==  ''"> <h4 class="text-center">{{message}}</h4> </div>
                                     <form class="user" [formGroup]="formLogin" (ngSubmit)="DoLogin()">
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 [(ngModel)]="email" formControlName="email" id="email" name="email"
-                                                [ngClass]="{'is-invalid': f.email.errors }"
+                                                [ngClass]="{'is-invalid': !formLogin.get('email').valid && formLogin.get('email').touched }"
                                                 aria-describedby="emailHelp" placeholder="Enter Email Address...">
                                         </div>
                                         <!-- <div class="text-danger ml-3 mb-3" *ngIf="f?.email?.errors">
@@ -32,7 +33,7 @@
                                         <div class="form-group">
                                             <input class="form-control form-control-user"
                                                   [(ngModel)]="password" formControlName="password" type="password" id="password"
-                                                  [ngClass]="{'is-invalid': f.password.errors }" name="password" placeholder="Password">
+                                                  [ngClass]="{'is-invalid': !formLogin.get('password').valid && formLogin.get('password').touched }" name="password" placeholder="Password">
                                         </div>
                                         <!-- <div class="text-danger ml-3 mb-3" *ngIf="f?.password?.errors">
                                           <div *ngIf="f?.password?.errors?.required">password is required</div>

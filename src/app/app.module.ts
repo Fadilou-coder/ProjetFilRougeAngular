@@ -45,6 +45,11 @@ import { ItemReferentielComponent } from './referentiel/item-referentiel/item-re
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { QRCodeModule } from 'angular2-qrcode';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { DetailsProfilSortieComponent } from './Profil-Sortie/details-profil-sortie/details-profil-sortie.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { FilterPipe } from './Pipes/filter.pipe';
+import { EditCpmtComponent } from './competences/edit-cpmt/edit-cpmt.component';
+import { SummerizePipe } from './Pipes/summerize.pipe';
 
 @NgModule({
   declarations: [
@@ -76,7 +81,12 @@ import { NotFoundComponent } from './not-found/not-found.component';
     AddReferentielComponent,
     EditReferentielComponent,
     ItemReferentielComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    DetailsProfilSortieComponent,
+    ConfirmDialogComponent,
+    FilterPipe,
+    EditCpmtComponent,
+    SummerizePipe
   ],
   imports: [
     BrowserModule,

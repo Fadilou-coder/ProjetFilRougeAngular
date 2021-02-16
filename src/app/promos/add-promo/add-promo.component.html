@@ -10,7 +10,7 @@
             <div class="text-center">
               <h1 class="h4 text-gray-900 mb-4">Creer Une Promotion</h1>
             </div>
-            <form class="user" [formGroup]="formadd" (ngSubmit)="addPromo()">
+            <form class="user" #myForm="ngForm" [formGroup]="formadd" (ngSubmit)="addPromo(myForm)">
               <div class="form-group">
                 <label for="langue">Choix de langue</label>
                 <select id="langue" class="selectpicker ml-3" data-style="btn-primary" [(ngModel)]="langue" formControlName="langue">
@@ -89,12 +89,20 @@
                   >
                   </ng-multiselect-dropdown>
               </div>
-              <ngx-dropzone (change)="onSelect($event)">
+              <!-- <ngx-dropzone (change)="onSelect($event)">
                 <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
                 <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
                     <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                 </ngx-dropzone-preview>
-            </ngx-dropzone>
+            </ngx-dropzone> -->
+            <div *ngIf="url" class="mb-2">
+              <img class="avatar" [src]="url" alt="..."/>
+            </div>
+            <div class="custom-file">
+              <input type="file" accept=".jpg,.gif,.png, .jpeg" multiple class="custom-file-input form-control form-control-user" id="image" (change)="onSelect($event)"
+                [(ngModel)]="image" formControlName="image" name="image">
+                <label class="custom-file-label" #labelImport for="image">Choisir une image</label>
+            </div>
 
             <div class="form-group float-right mt-3">
               <button type="button" class="ml-5 btn btn-outline-success" (click)="apps.click()">Charger un fichier cvs</button>
@@ -102,7 +110,7 @@
             </div>
 
             <div class="container row">
-              <div class="col-6">
+              <div class="col-9">
                 <h4>Ajouter des apprenants<br><small class="ml-2 text-danger">*obligatoire</small></h4>
 
                 <div class="form-group mt-5">
@@ -111,11 +119,11 @@
                             formControlName="email" id="email" name="email" placeholder="Email des apprenants" [displayBy] = "'email'" [(ngModel)] = "email"></tag-input>
                 </div>
               </div>
-              <div class="col">
+              <!-- <div class="col">
                   <h4>Liste des apprenants</h4>
                   <small class="text-info">02 apprenants en attentes<button type="button" class="ml-2 btn-sm btn-outline-success" >Relancer toutes les invitations</button></small><br><br>
                   <small class="text-info">example@mail.com<button type="button" class="ml-5 btn-sm btn-outline-success">Relancer l'invitation</button></small>
-              </div>
+              </div> -->
             </div>
 
               <button [disabled]="formadd.invalid" type="submit" class="btn btn-outline-success btn-block mt-3">

@@ -24,6 +24,10 @@ export class CpmtServicesService {
     return this.http.post(this.baseUrl + '/admin/competences',  data );
   }
 
+  putCpmt(id, data: any): any{
+    return this.http.put(this.baseUrl + '/admin/competences/' + id,  data );
+  }
+
   findOnecmpt(data: any): any{
     return this.http.get(this.baseUrl + '/admin/competences/' + data );
   }

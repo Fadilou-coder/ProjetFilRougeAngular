@@ -1,4 +1,4 @@
-//import * as jsPDF from 'jspdf'
+import { jsPDF } from 'jspdf'
 import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from 'src/app/users/service/user.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';

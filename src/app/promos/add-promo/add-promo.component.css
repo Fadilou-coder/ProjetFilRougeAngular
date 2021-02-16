@@ -15,3 +15,8 @@
   background-color: darkgray;
   color: black;
 }
+
+.avatar{
+  height: 200px;
+  width: 200px;
+}

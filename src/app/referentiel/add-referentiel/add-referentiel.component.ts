@@ -1,8 +1,10 @@
+import { Router } from '@angular/router';
 import { ReferentielService } from 'src/app/referentiel/Service/referentiel.service';
 import { GrpCmptService } from 'src/app/grp-competences/Services/grp-cmpt.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-referentiel',
@@ -27,6 +29,7 @@ export class AddReferentielComponent implements OnInit {
     private comptService: GrpCmptService,
     private FormBuilder: FormBuilder,
     private refService: ReferentielService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -72,15 +75,22 @@ export class AddReferentielComponent implements OnInit {
     formData.append('libelle', this.formadd.value.libelle);
     formData.append('presentation', this.formadd.value.presentation);
     formData.append('critereEvaluation', this.formadd.value.critereEvaluation);
-    formData.append('critrreAdmission', this.formadd.value.critereAdmission);
+    formData.append('critereAdmission', this.formadd.value.critereAdmission);
     formData.append('programme', this.pdfSrc);
     formData.append('grpCmpt', cpmt);
     this.refService.addRef(formData).subscribe(
       data => {
         console.log(data);
+        Swal.fire(
+          'Succes!',
+          'Groupe Competence ajouter avec succes.',
+          'success'
+        );
+        this.router.navigate(['/acceuil/referentiel'])
       },
       err => {
         console.log(err);
+        alert('Cet Référentiel existe deja');
       });
   }
 

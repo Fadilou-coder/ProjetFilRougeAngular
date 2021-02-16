@@ -12,12 +12,12 @@
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user"
                                         id="prenom" placeholder="Prénom" [(ngModel)]="prenom" formControlName="prenom"
-                                        name="prenom" [ngClass]="{'is-invalid': f.prenom.errors }" readonly>
+                                        name="prenom" [ngClass]="{'is-invalid': f.prenom.errors }" [readonly] = "connected">
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user" placeholder="Nom"
                                           [(ngModel)]="user.nom" formControlName="nom" id="nom" name="nom"
-                                          [ngClass]="{'is-invalid': f.nom.errors }" readonly>
+                                          [ngClass]="{'is-invalid': f.nom.errors }" [readonly] = "connected">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -32,12 +32,12 @@
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="password" class="form-control form-control-user" placeholder="Password"
                                           [(ngModel)]="password" formControlName="password" id="password" name="password"
-                                          [ngClass]="{'is-invalid': f.password.errors }" readonly>
+                                          [ngClass]="{'is-invalid': f.password.errors }" [readonly] = "connected">
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user" placeholder="Confirm Password"
                                           [(ngModel)]="password" formControlName="confirm" id="confirm" name="confirm"
-                                          [ngClass]="{'is-invalid': f.confirm.errors }" readonly>
+                                          [ngClass]="{'is-invalid': f.confirm.errors }" [readonly] = "connected">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -48,8 +48,8 @@
                                 </div>
                                 <div class="input-group">
                                   <div class="custom-file">
-                                    <input type="file" class="custom-file-input form-control form-control-user disable-click" id="image" (change)="onFilSelected($event)"
-                                      [(ngModel)]="image" formControlName="image" name="image">
+                                    <input type="file" class="custom-file-input form-control form-control-user" id="image" (change)="onFilSelected($event)"
+                                      [(ngModel)]="image" formControlName="image" name="image" [ngClass]="{'disable-click': connected == true}">
                                     <label class="custom-file-label" for="avatar">Choisir une image</label>
                                   </div>
                                 </div>
